@@ -1,4 +1,4 @@
-// 1502. Can Make Arithmetic Progression From Sequence
+// 1502. Can Make Arithmetic Progression From Sequence 
 
 bool canMakeArithmeticProgression(int* arr, int arrSize) {
     // bubble sort
