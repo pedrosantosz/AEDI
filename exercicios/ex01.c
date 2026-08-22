@@ -20,7 +20,7 @@ int main() {
 
 				if (qtd_nomes == 0) {
 					nomes = (char *) malloc((strlen(nome) + 2) * sizeof(char)); // +2 (separador e terminador)
-					strcpy(nomes, nome); // preciso do cpy pra limpar a "sujeira"
+					strcpy(nomes, nome); 										// preciso do cpy pra limpar a "sujeira"
 				} else {
 					nomes = (char *) realloc(nomes, (strlen(nomes) + strlen(nome) + 2) * sizeof(char)); 
 					strcat(nomes, nome);
@@ -34,38 +34,38 @@ int main() {
 				if (nomes == NULL)
 					break;
 
-				int nomes_buscados = 0, encontrado = 0;
-				char nome[20], *busca, *aux;
+				char nome[20];
 				printf("Nome: ");
 				scanf("%s", nome);
 
-				aux = (char *) malloc((strlen(nomes) + 1) * sizeof(char)); // solucao temporaria
-				strcpy(aux, nomes);
+				int i, j = 0, comeco = 0, fim = 0;
+			    int encontrado = 0;
 
-				busca = strtok(aux, ";");
-
-				while (busca != NULL) {
-					if (strcmp(nome, busca) != 0) {
-						if (nomes_buscados == 0) // se for o primeiro nome, preciso copiar, nao concatenar (diminui a string)
-							strcpy(nomes, busca);
-						else
-							strcat(nomes, busca);
-						strcat(nomes, ";");
-						nomes_buscados++;
-					} else {
-						encontrado = 1;
-					}
-
-					busca = strtok(NULL, ";");
-				}
+			    for (i = 0; nomes[i] != '\0'; i++) {
+			        if (nomes[i] == nome[j]) {                        // se as letras forem iguais
+			            if (j == 0)                                   // salvo onde comeca
+			                comeco = i;
+			            j++;                                          // passo pra proxima letra
+			        }  else if (nomes[i] == ';' && nome[j] == '\0'){  // se as letras forem diferentes, mas o nome ja tiver chegado no final
+			            encontrado = 1;
+			            fim = i;
+			            break;
+			        } else {                                          // caso sejam diferentes, mas o nome nao chegou no final ainda
+			            j = 0;                                        // os nomes sao diferentes, e entao recomeca a checagem
+			        }
+			    }
 
 				if (encontrado) {
+					for (i = comeco; nomes[fim + 1] != '\0'; i++) { // (fim sempre vai ser um ';') -- deslocamento da string
+			            nomes[i] = nomes[fim + 1];
+			            fim++;
+			        }
+			        nomes[i] = '\0';								// finalizador da string quando terminar de deslocar
+
 					qtd_nomes--;
-					if (nomes_buscados == 0) // nomes tinha um unico nome que foi excluido
-						nomes[0] = '\0';
-					nomes = (char *) realloc(nomes, (strlen(nomes) + 1) * sizeof(char));
+					
+					nomes = (char *) realloc(nomes, ((strlen(nomes) + 1) * sizeof(char)));
 				}
-				free(aux);
 				break;
 			}
 			case 3: {
