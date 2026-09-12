@@ -100,14 +100,14 @@ int maxSubArray( int *nums, int numsSize ) {
 	int somaAtual = nums[0];
     int maior = nums[0];
 
-    for (int i = 1 ; i < numsSize; i++) {
-        if (somaAtual + nums[i] > nums[i]) {
+    for ( int i = 1 ; i < numsSize; i++ ) {
+        if ( somaAtual + nums[i] > nums[i] ) {
             somaAtual += nums[i];
         } else {
             somaAtual = nums[i];
         }
 
-        if (somaAtual > maior) {
+        if ( somaAtual > maior ) {
             maior = somaAtual;
         }
     }
