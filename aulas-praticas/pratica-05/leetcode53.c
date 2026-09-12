@@ -97,19 +97,19 @@ maxSubArray
 ====================
 */
 int maxSubArray( int *nums, int numsSize ) {
-	if (numsSize == 1) {
+	if ( numsSize == 1 ) {
 		return nums[0];
 	}
 
 	int maior = nums[0];
 
-	for (int i = 0; i < numsSize; i++) {
+	for ( int i = 0; i < numsSize; i++ ) {
 		int sum = 0;
 
-		for (int j = i; j < numsSize; j++) {
+		for ( int j = i; j < numsSize; j++ ) {
 			sum += nums[j];
 
-			if (sum > maior) {
+			if ( sum > maior ) {
 				maior = sum;
 			}
 		}
