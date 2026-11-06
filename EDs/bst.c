@@ -10,7 +10,7 @@ typedef struct No {
 No *criarNo(int valor);
 No *inserir(No *raiz, int valor);
 No *buscar(No *raiz, int valor);
-No *minimo(No *raiz);
+No *maximo(No *raiz);
 No *remover(No *raiz, int valor);
 void liberar(No *raiz);
 
@@ -82,7 +82,7 @@ No *buscar(No *raiz, int valor) {
 	return buscar(raiz->dir, valor);
 }
 
-No *minimo(No *raiz) {
+No *maximo(No *raiz) {
 	while (raiz->dir != NULL) {
 		raiz = raiz->dir;
 	}
@@ -118,7 +118,7 @@ No *remover(No *raiz, int valor) {
 
 		// se não cair em nenhum desses casos, tem os dois filhos
 
-		No *sucessor = minimo(raiz->esq);
+		No *sucessor = maximo(raiz->esq);
 		raiz->valor = sucessor->valor;
 		raiz->esq = remover(raiz->esq, sucessor->valor);
 	}
